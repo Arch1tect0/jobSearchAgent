@@ -9,7 +9,7 @@ import subprocess
 from compile_resume import compile_resume
 
 
-RESUME_EDIT_MODEL = "gpt-4.1-mini"
+RESUME_EDIT_MODEL = "claude-sonnet-4-20250514"
 
 ALLOWED_EXPERIENCE_TARGETS = {
     "experience-bullet-1",
@@ -173,6 +173,98 @@ def validate_evidence(evidence: Any, field_name: str) -> None:
             )
 
         require_nonempty_string(reference, f"{item_name}.reference")
+
+
+def normalize_project_name(value: Any) -> str:
+    """Normalize project names for matching."""
+    return re.sub(
+        r"[^a-z0-9]+",
+        "",
+        str(value).strip().lower(),
+    )
+
+
+def current_resume_project_slots(
+    resume_summary_data: dict[str, Any],
+    portfolio_data: dict[str, Any],
+) -> dict[str, str]:
+    """
+    Match projects currently listed in resume.tex to portfolio project IDs.
+
+    Returns:
+        {
+            "project-1": "project-id-1",
+            "project-2": "project-id-2",
+            "project-3": "project-id-3",
+        }
+    """
+    portfolio_projects = portfolio_data.get("projects", [])
+
+    name_to_id = {
+        normalize_project_name(project.get("project_name", "")):
+            project["project_id"]
+        for project in portfolio_projects
+        if isinstance(project, dict)
+        and project.get("project_id")
+        and project.get("project_name")
+    }
+
+    resume_projects = resume_summary_data.get(
+        "resume_projects",
+        [],
+    )
+
+    slots = {}
+
+    for index, project_name in enumerate(
+        resume_projects[:3],
+        start=1,
+    ):
+        normalized = normalize_project_name(project_name)
+        project_id = name_to_id.get(normalized)
+
+        if project_id:
+            slots[f"project-{index}"] = project_id
+
+    return slots
+
+def fill_missing_project_remove_ids(
+    edit_plan: dict[str, Any],
+    resume_summary_data: dict[str, Any],
+    portfolio_data: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Fill a missing remove_project_id using the selected project slot.
+
+    Claude still decides which slot to replace. Python identifies the
+    portfolio ID currently occupying that slot.
+    """
+    slot_map = current_resume_project_slots(
+        resume_summary_data,
+        portfolio_data,
+    )
+
+    for swap in edit_plan.get("project_swaps", []):
+        if not isinstance(swap, dict):
+            continue
+
+        remove_id = swap.get("remove_project_id")
+
+        if isinstance(remove_id, str) and remove_id.strip():
+            continue
+
+        slot = swap.get("slot")
+        inferred_id = slot_map.get(slot)
+
+        if not inferred_id:
+            raise ValueError(
+                f"Could not infer remove_project_id for slot {slot!r}. "
+                f"Resolved resume project slots: {slot_map}"
+            )
+
+        swap["remove_project_id"] = inferred_id
+
+    return edit_plan
 
 
 def validate_edit_plan(
@@ -406,11 +498,19 @@ def build_resume_edit_prompt(
         "gaps": [],
     }
 
+    resume_project_slots = current_resume_project_slots(
+        resume_summary_data,
+        portfolio_data,
+    )
+
     return f"""
 You are preparing a controlled edit plan for a LaTeX resume.
 
 JOB:
 {json.dumps(job, indent=2)}
+
+CURRENT RESUME PROJECT SLOTS:
+{json.dumps(resume_project_slots, indent=2)}
 
 STRUCTURED RESUME:
 {json.dumps(resume_summary_data, indent=2)}
@@ -454,6 +554,11 @@ Rules:
 - Empty skills.changes and project_swaps lists are valid.
 - Return exactly two experience bullet edits.
 
+For every project swap:
+- slot must be project-1, project-2, or project-3.
+- remove_project_id must equal the project ID currently occupying that slot.
+- add_project_id must be an exact project_id from the portfolio.
+
 Return exactly one JSON object with this structure:
 
 {json.dumps(output_schema, indent=2)}
@@ -474,30 +579,36 @@ def call_resume_edit_model(
             "before process_top_job()."
         )
 
-    response = _PIPELINE_CLIENT.responses.create(
+    response = _PIPELINE_CLIENT.messages.create(
         model=model,
-        input=[
-            {
-                "role": "system",
-                "content": (
-                    "Create evidence-grounded, controlled resume edit "
-                    "plans. Return valid JSON only."
-                ),
-            },
+        max_tokens=5000,
+        temperature=0,
+        system=(
+            "Create evidence-grounded, controlled resume edit plans. "
+            "Return valid JSON only. Do not include Markdown fences."
+        ),
+        messages=[
             {
                 "role": "user",
                 "content": prompt,
-            },
+            }
         ],
     )
 
-    output_text = getattr(response, "output_text", None)
+    text_parts = []
+
+    for block in response.content:
+        if getattr(block, "type", None) == "text":
+            text_parts.append(block.text)
+
+    output_text = "".join(text_parts).strip()
 
     if not output_text:
-        raise RuntimeError("The resume-edit model returned no output text.")
+        raise RuntimeError(
+            "The Anthropic model returned no output text."
+        )
 
     return output_text
-
 
 def generate_edit_plan(
     job: dict[str, Any],
@@ -522,6 +633,13 @@ def generate_edit_plan(
 
     raw_response = call_resume_edit_model(prompt, model=model)
     edit_plan = parse_json_response(raw_response)
+
+    edit_plan = fill_missing_project_remove_ids(
+        edit_plan=edit_plan,
+        resume_summary_data=_PIPELINE_RESUME_SUMMARY,
+        portfolio_data=portfolio_data,
+    )
+
     validate_edit_plan(edit_plan, portfolio_data)
 
     return edit_plan
