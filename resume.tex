@@ -1,0 +1,140 @@
+%-------------------------------------------------------------------------------
+% Fictional Candidate Resume - EDS 6397 Group Assignment: Job Search Agent
+% Candidate identity and contact information are entirely fictional.
+% This source is designed for automated, marker-based editing and pdflatex.
+%-------------------------------------------------------------------------------
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.2in}
+
+\titleformat{\section}{\large\bfseries\scshape\raggedright}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+\newcommand{\resumeItem}[1]{\item\small{#1}}
+\newcommand{\resumeEntry}[4]{
+  \item
+  \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small#4} \\
+  \end{tabular*}\vspace{-4pt}
+}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.2in, itemsep=1pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{2pt}}
+\newcommand{\resumeEntryListStart}{\begin{itemize}[leftmargin=0.0in, label={}, itemsep=2pt]}
+\newcommand{\resumeEntryListEnd}{\end{itemize}}
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+    {\Huge \scshape Jordan Lee} \\ \vspace{2pt}
+    Austin, TX $|$ 555-010-2048 $|$
+    \href{mailto:jordan.lee@example.com}{jordan.lee@example.com} $|$
+    \href{https://github.com/jordanlee-ai}{github.com/jordanlee-ai}
+\end{center}
+
+%----------SUMMARY----------
+\section{Professional Summary}
+% AGENT-EDIT-TARGET: summary
+Machine learning and data science graduate student with experience building predictive models,
+AI applications, and production-oriented data pipelines. Proficient in Python, PyTorch,
+scikit-learn, SQL, FastAPI, and Docker; targeting ML Engineer, Data Scientist, and AI Engineer roles.
+
+%----------EDUCATION----------
+\section{Education}
+\resumeEntryListStart
+  \resumeEntry{Example University}{Austin, TX}
+    {M.S. in Data Science, GPA 3.85/4.0}{Expected May 2027}
+  \resumeEntry{State College}{Dallas, TX}
+    {B.S. in Computer Science}{May 2025}
+\resumeEntryListEnd
+
+%----------EXPERIENCE----------
+\section{Experience}
+\resumeEntryListStart
+
+  \resumeEntry{Data Science Research Assistant}{August 2025 -- Present}
+    {Example University Applied AI Lab}{Austin, TX}
+  \resumeItemListStart
+    % AGENT-EDIT-TARGET: experience-bullet-1
+    \resumeItem{Built Python pipelines for feature engineering, model training, and evaluation across
+      structured and text datasets, reducing experiment setup time by 35\%.}
+    % AGENT-EDIT-TARGET: experience-bullet-2
+    \resumeItem{Developed PyTorch and scikit-learn baselines, tracked experiments with MLflow, and
+      presented model performance and error analysis to a six-person research team.}
+    \resumeItem{Created reusable data-validation checks that identified schema drift, missing values,
+      and label inconsistencies before model training.}
+  \resumeItemListEnd
+
+  \resumeEntry{Software Engineering Intern}{May 2025 -- August 2025}
+    {Northstar Analytics}{Dallas, TX}
+  \resumeItemListStart
+    \resumeItem{Implemented FastAPI endpoints and SQL data-access components for an internal analytics
+      platform used by operations teams.}
+    \resumeItem{Containerized services with Docker and added automated tests, reducing deployment-related
+      defects during release validation.}
+  \resumeItemListEnd
+
+\resumeEntryListEnd
+
+%----------PROJECTS----------
+% The agent may SWAP any project below with a more relevant one from the
+% portfolio file. Swapped-in projects must be formatted exactly like these.
+\section{Projects}
+\resumeEntryListStart
+
+  % AGENT-SWAP-TARGET: project-1
+  % PROJECT-ID: resume-job-matching-agent
+  \resumeEntry{Resume--Job Matching Agent}{2026}
+    {Tech Stack: Python, OpenAI API, JSON, LaTeX}{Human Resources Technology}
+  \resumeItemListStart
+    \resumeItem{Built an AI agent that ranks portfolio projects against job descriptions, edits marked
+      LaTeX sections, recompiles with pdflatex, and validates a one-page resume output.}
+  \resumeItemListEnd
+
+  % AGENT-SWAP-TARGET: project-2
+  % PROJECT-ID: manufacturing-defect-detection
+  \resumeEntry{Manufacturing Defect Detection System}{2025}
+    {Tech Stack: Python, PyTorch, OpenCV, Docker}{Manufacturing}
+  \resumeItemListStart
+    \resumeItem{Trained a convolutional neural network that classified product defects with 94\%
+      accuracy and packaged the inference workflow in a Docker container.}
+  \resumeItemListEnd
+
+  % AGENT-SWAP-TARGET: project-3
+  % PROJECT-ID: document-question-answering
+  \resumeEntry{Document Question--Answering System}{2024}
+    {Tech Stack: Python, Sentence Transformers, FAISS, FastAPI}{Knowledge Management}
+  \resumeItemListStart
+    \resumeItem{Developed a retrieval-augmented question-answering system that used semantic search
+      and source citations to generate grounded responses from technical documents.}
+  \resumeItemListEnd
+
+\resumeEntryListEnd
+
+%----------SKILLS----------
+\section{Skills}
+% AGENT-EDIT-TARGET: skills
+\begin{itemize}[leftmargin=0.2in, itemsep=1pt]
+  \small\item{\textbf{Languages:} Python, SQL, JavaScript, Bash}
+  \small\item{\textbf{ML \& Data:} PyTorch, scikit-learn, pandas, NumPy, XGBoost, MLflow, FAISS}
+  \small\item{\textbf{Systems \& Tools:} Git, Docker, FastAPI, PostgreSQL, Linux, REST APIs}
+\end{itemize}
+
+\end{document}

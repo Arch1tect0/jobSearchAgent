@@ -1,0 +1,584 @@
+{
+  "candidate_name": "Jordan Lee",
+  "candidate_profile": "Graduate data science student with experience in machine learning, AI-assisted applications, predictive analytics, and data engineering.",
+  "target_roles": [
+    "Machine Learning Engineer",
+    "Data Scientist",
+    "AI Software Engineer"
+  ],
+  "projects": [
+    {
+      "project_id": "resume-job-matching-agent",
+      "project_name": "Resume–Job Matching Agent",
+      "domain": "Human Resources Technology",
+      "industry": "Recruiting and Talent Acquisition",
+      "year": 2026,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "OpenAI API",
+        "JSON",
+        "LaTeX",
+        "Git"
+      ],
+      "skills": [
+        "Agentic AI",
+        "Prompt Engineering",
+        "Document Automation",
+        "Information Retrieval"
+      ],
+      "problem": "Job applicants often submit generic resumes that do not highlight the experience most relevant to a specific position.",
+      "solution": "Developed an agent that reads a job description, evaluates projects from a structured portfolio, selects the most relevant projects, edits a LaTeX resume template, and recompiles the resume as a PDF.",
+      "candidate_contribution": [
+        "Designed the machine-readable portfolio structure",
+        "Implemented project relevance scoring",
+        "Created marker-based LaTeX editing",
+        "Automated compilation and one-page validation"
+      ],
+      "results": [
+        "Produced job-specific resumes from a reusable source file",
+        "Restricted generated resumes to the three most relevant projects",
+        "Detected LaTeX compilation errors before submission"
+      ],
+      "resume_summary": "Built an AI agent that ranks portfolio projects against job descriptions, edits a LaTeX resume, and automatically recompiles a one-page PDF.",
+      "keywords": [
+        "AI agent",
+        "LLM",
+        "Python",
+        "LaTeX",
+        "resume generation",
+        "automation"
+      ]
+    },
+    {
+      "project_id": "customer-churn-prediction",
+      "project_name": "Customer Churn Prediction Platform",
+      "domain": "Predictive Analytics",
+      "industry": "Telecommunications",
+      "year": 2025,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "pandas",
+        "scikit-learn",
+        "SQL",
+        "Power BI"
+      ],
+      "skills": [
+        "Classification",
+        "Feature Engineering",
+        "Model Evaluation",
+        "Data Visualization"
+      ],
+      "problem": "A telecommunications provider needed to identify customers at risk of canceling their service.",
+      "solution": "Built a classification pipeline using customer usage, service, billing, and support data to predict churn risk.",
+      "candidate_contribution": [
+        "Cleaned and joined customer data from multiple tables",
+        "Engineered behavioral and billing features",
+        "Compared logistic regression, random forest, and gradient boosting models",
+        "Built a dashboard displaying high-risk customer segments"
+      ],
+      "results": [
+        "Achieved an F1 score of 0.82 on the test dataset",
+        "Identified contract type and support-call frequency as major churn indicators",
+        "Created a repeatable scoring pipeline for new customer records"
+      ],
+      "resume_summary": "Developed a customer churn classification pipeline with an F1 score of 0.82 and delivered dashboards identifying high-risk customer segments.",
+      "keywords": [
+        "classification",
+        "customer churn",
+        "scikit-learn",
+        "SQL",
+        "feature engineering",
+        "Power BI"
+      ]
+    },
+    {
+      "project_id": "manufacturing-defect-detection",
+      "project_name": "Manufacturing Defect Detection System",
+      "domain": "Computer Vision",
+      "industry": "Manufacturing",
+      "year": 2025,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "PyTorch",
+        "OpenCV",
+        "NumPy",
+        "Docker"
+      ],
+      "skills": [
+        "Deep Learning",
+        "Image Classification",
+        "Data Augmentation",
+        "Model Deployment"
+      ],
+      "problem": "Manual inspection of manufactured components was slow and inconsistent.",
+      "solution": "Trained a convolutional neural network to classify product images as acceptable or defective.",
+      "candidate_contribution": [
+        "Prepared and labeled the image dataset",
+        "Implemented image preprocessing and augmentation",
+        "Trained and evaluated convolutional neural network models",
+        "Packaged the inference service in a Docker container"
+      ],
+      "results": [
+        "Reached 94 percent classification accuracy",
+        "Reduced false-negative defects through class weighting",
+        "Produced an inference workflow suitable for integration with a production camera system"
+      ],
+      "resume_summary": "Trained a PyTorch computer-vision model that detected manufacturing defects with 94 percent accuracy and deployed inference through Docker.",
+      "keywords": [
+        "computer vision",
+        "PyTorch",
+        "CNN",
+        "OpenCV",
+        "Docker",
+        "manufacturing"
+      ]
+    },
+    {
+      "project_id": "restaurant-recommendation-system",
+      "project_name": "Personalized Restaurant Recommendation System",
+      "domain": "Recommendation Systems",
+      "industry": "Food and Hospitality",
+      "year": 2025,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "scikit-learn",
+        "Google Places API"
+      ],
+      "skills": [
+        "Recommendation Algorithms",
+        "API Integration",
+        "Backend Development",
+        "Database Design"
+      ],
+      "problem": "Users had difficulty identifying nearby restaurants that matched their cuisine preferences, budget, and dietary restrictions.",
+      "solution": "Created a recommendation service that combined user preferences, restaurant attributes, location, and ratings.",
+      "candidate_contribution": [
+        "Designed the restaurant and user-preference data models",
+        "Implemented content-based recommendation scoring",
+        "Integrated external location and restaurant data",
+        "Exposed recommendations through a FastAPI service"
+      ],
+      "results": [
+        "Returned ranked recommendations based on distance, budget, cuisine, and dietary needs",
+        "Supported reusable user preference profiles",
+        "Reduced API requests by caching restaurant metadata"
+      ],
+      "resume_summary": "Developed a FastAPI restaurant recommendation service that ranked nearby options using cuisine, budget, ratings, distance, and dietary preferences.",
+      "keywords": [
+        "recommendation system",
+        "FastAPI",
+        "PostgreSQL",
+        "API integration",
+        "hospitality"
+      ]
+    },
+    {
+      "project_id": "financial-fraud-detection",
+      "project_name": "Financial Transaction Fraud Detection",
+      "domain": "Anomaly Detection",
+      "industry": "Financial Services",
+      "year": 2024,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "XGBoost",
+        "pandas",
+        "SQL",
+        "SHAP"
+      ],
+      "skills": [
+        "Imbalanced Classification",
+        "Anomaly Detection",
+        "Explainable AI",
+        "Risk Modeling"
+      ],
+      "problem": "Fraudulent transactions represented a small fraction of records but caused disproportionate financial risk.",
+      "solution": "Built a fraud-detection model using transaction behavior, account history, and merchant attributes.",
+      "candidate_contribution": [
+        "Created time-based transaction features",
+        "Handled class imbalance using weighted training",
+        "Optimized the decision threshold based on fraud-detection cost",
+        "Used SHAP values to explain model predictions"
+      ],
+      "results": [
+        "Improved fraud recall while controlling false-positive alerts",
+        "Produced explanations for individual flagged transactions",
+        "Created a risk-scoring output suitable for analyst review"
+      ],
+      "resume_summary": "Built an explainable fraud-detection model using XGBoost and SHAP, improving detection of high-risk transactions in an imbalanced dataset.",
+      "keywords": [
+        "fraud detection",
+        "XGBoost",
+        "SHAP",
+        "imbalanced data",
+        "financial services"
+      ]
+    },
+    {
+      "project_id": "document-question-answering",
+      "project_name": "Document Question-Answering System",
+      "domain": "Natural Language Processing",
+      "industry": "Knowledge Management",
+      "year": 2024,
+      "status": "Completed",
+      "tech_stack": [
+        "Python",
+        "Sentence Transformers",
+        "FAISS",
+        "FastAPI",
+        "Docker"
+      ],
+      "skills": [
+        "Retrieval-Augmented Generation",
+        "Semantic Search",
+        "Text Processing",
+        "Backend Development"
+      ],
+      "problem": "Employees spent significant time manually searching technical reports and policy documents.",
+      "solution": "Developed a retrieval-augmented question-answering system that located relevant document passages and generated grounded responses.",
+      "candidate_contribution": [
+        "Implemented document chunking and metadata storage",
+        "Generated semantic embeddings",
+        "Created vector similarity search using FAISS",
+        "Added source references to generated answers"
+      ],
+      "results": [
+        "Returned relevant document passages for natural-language questions",
+        "Reduced unsupported responses by requiring retrieved evidence",
+        "Packaged the application as a containerized API"
+      ],
+      "resume_summary": "Developed a retrieval-augmented question-answering system using sentence embeddings and FAISS to generate source-grounded answers from technical documents.",
+      "keywords": [
+        "RAG",
+        "natural language processing",
+        "semantic search",
+        "FAISS",
+        "embeddings",
+        "Docker"
+      ]
+    },
+    {
+      "project_id": "clinical-readmission-risk",
+      "project_name": "Hospital Readmission Risk Prediction",
+      "domain": "Predictive Analytics",
+      "industry": "Healthcare",
+      "year": 2026,
+      "status": "Completed",
+      "target_roles": [
+        "Data Scientist",
+        "ML Engineer"
+      ],
+      "tech_stack": [
+        "Python",
+        "pandas",
+        "scikit-learn",
+        "LightGBM",
+        "MLflow",
+        "FastAPI"
+      ],
+      "skills": [
+        "Binary Classification",
+        "Feature Engineering",
+        "Model Explainability",
+        "Experiment Tracking",
+        "API Deployment"
+      ],
+      "problem": "Hospitals needed a way to identify patients at elevated risk of readmission so that limited follow-up resources could be directed toward the highest-risk cases.",
+      "solution": "Developed a machine-learning pipeline that predicted 30-day readmission risk using demographic, diagnosis, treatment, laboratory, and prior-admission data.",
+      "candidate_contribution": [
+        "Created reproducible preprocessing pipelines for numerical and categorical clinical variables",
+        "Engineered features representing prior utilization, length of stay, and chronic-condition burden",
+        "Compared logistic regression, random forest, and LightGBM models",
+        "Used SHAP values to explain patient-level risk predictions",
+        "Deployed the final model as a FastAPI prediction service"
+      ],
+      "results": [
+        "Achieved a test ROC-AUC of 0.86",
+        "Improved recall for high-risk patients while maintaining an acceptable false-positive rate",
+        "Tracked model parameters, metrics, and artifacts with MLflow",
+        "Produced interpretable risk factors for clinical review"
+      ],
+      "resume_summary": "Built an explainable hospital-readmission model with a test ROC-AUC of 0.86, tracked experiments in MLflow, and deployed predictions through FastAPI.",
+      "keywords": [
+        "healthcare analytics",
+        "LightGBM",
+        "classification",
+        "SHAP",
+        "MLflow",
+        "FastAPI",
+        "model deployment"
+      ]
+    },
+    {
+      "project_id": "energy-demand-forecasting",
+      "project_name": "Regional Energy Demand Forecasting",
+      "domain": "Time-Series Forecasting",
+      "industry": "Energy and Utilities",
+      "year": 2026,
+      "status": "Completed",
+      "target_roles": [
+        "Data Scientist",
+        "ML Engineer"
+      ],
+      "tech_stack": [
+        "Python",
+        "pandas",
+        "XGBoost",
+        "Prophet",
+        "PostgreSQL",
+        "Apache Airflow",
+        "Docker"
+      ],
+      "skills": [
+        "Time-Series Modeling",
+        "Forecasting",
+        "Feature Engineering",
+        "Data Pipelines",
+        "Model Monitoring"
+      ],
+      "problem": "An electric utility needed accurate short-term demand forecasts to support capacity planning and reduce the risk of over- or under-generation.",
+      "solution": "Built a forecasting system that combined historical electricity demand with weather, calendar, seasonal, and holiday variables.",
+      "candidate_contribution": [
+        "Created hourly lag, rolling-average, seasonal, and weather-interaction features",
+        "Compared baseline, Prophet, and gradient-boosted forecasting models",
+        "Developed backtesting procedures using rolling time windows",
+        "Orchestrated daily data ingestion and forecast generation with Apache Airflow",
+        "Containerized the forecasting service for repeatable deployment"
+      ],
+      "results": [
+        "Reduced mean absolute percentage error by 18 percent compared with the seasonal baseline",
+        "Generated hourly demand forecasts for the following seven days",
+        "Detected forecast degradation using rolling error metrics",
+        "Automated daily data refresh and model execution"
+      ],
+      "resume_summary": "Developed an automated energy-demand forecasting pipeline that reduced error by 18 percent versus a seasonal baseline and generated seven-day hourly forecasts.",
+      "keywords": [
+        "time series",
+        "forecasting",
+        "XGBoost",
+        "Prophet",
+        "Airflow",
+        "energy",
+        "MLOps"
+      ]
+    },
+    {
+      "project_id": "retail-dynamic-pricing",
+      "project_name": "Retail Demand and Pricing Optimization",
+      "domain": "Optimization and Forecasting",
+      "industry": "Retail and E-Commerce",
+      "year": 2025,
+      "status": "Completed",
+      "target_roles": [
+        "Data Scientist",
+        "ML Engineer"
+      ],
+      "tech_stack": [
+        "Python",
+        "pandas",
+        "XGBoost",
+        "SciPy",
+        "SQL",
+        "Streamlit"
+      ],
+      "skills": [
+        "Demand Modeling",
+        "Price Elasticity",
+        "Optimization",
+        "Scenario Analysis",
+        "Data Visualization"
+      ],
+      "problem": "A retailer needed to estimate how price changes would affect product demand, revenue, and inventory movement.",
+      "solution": "Developed product-level demand models and an optimization routine that recommended prices under margin, inventory, and pricing constraints.",
+      "candidate_contribution": [
+        "Combined transaction, promotion, inventory, and product data from SQL sources",
+        "Engineered price, discount, seasonality, competitor, and inventory features",
+        "Estimated product-level price sensitivity using machine-learning models",
+        "Implemented constrained price optimization with SciPy",
+        "Built a Streamlit interface for comparing pricing scenarios"
+      ],
+      "results": [
+        "Improved demand forecast error by 15 percent over the existing moving-average method",
+        "Generated price recommendations while enforcing minimum-margin constraints",
+        "Enabled users to compare expected revenue, demand, and inventory outcomes",
+        "Identified products with highly elastic and relatively inelastic demand"
+      ],
+      "resume_summary": "Built a retail pricing optimization tool that improved demand forecast accuracy by 15 percent and recommended prices under margin and inventory constraints.",
+      "keywords": [
+        "retail analytics",
+        "pricing optimization",
+        "demand forecasting",
+        "XGBoost",
+        "SciPy",
+        "Streamlit"
+      ]
+    },
+    {
+      "project_id": "logistics-route-intelligence",
+      "project_name": "Delivery Delay Prediction and Route Intelligence",
+      "domain": "Geospatial Machine Learning",
+      "industry": "Transportation and Logistics",
+      "year": 2025,
+      "status": "Completed",
+      "target_roles": [
+        "ML Engineer",
+        "Data Scientist"
+      ],
+      "tech_stack": [
+        "Python",
+        "GeoPandas",
+        "XGBoost",
+        "PostgreSQL",
+        "PostGIS",
+        "FastAPI",
+        "Docker"
+      ],
+      "skills": [
+        "Geospatial Analytics",
+        "Regression",
+        "Feature Engineering",
+        "API Development",
+        "Containerization"
+      ],
+      "problem": "A delivery operation experienced inconsistent arrival times because existing estimates did not account for traffic patterns, weather, route characteristics, or stop-level delays.",
+      "solution": "Created a machine-learning service that predicted delivery duration and identified routes with an elevated risk of delay.",
+      "candidate_contribution": [
+        "Processed route and stop coordinates with GeoPandas and PostGIS",
+        "Engineered distance, time-of-day, traffic, weather, stop-density, and driver-history features",
+        "Trained gradient-boosted regression models for delivery duration",
+        "Created an API for scoring new routes before dispatch",
+        "Added logging for prediction latency and realized delivery error"
+      ],
+      "results": [
+        "Reduced mean absolute arrival-time error by 21 percent",
+        "Flagged high-risk routes before vehicle dispatch",
+        "Returned route predictions through a containerized FastAPI service",
+        "Created monitoring data for comparing predicted and actual delivery times"
+      ],
+      "resume_summary": "Developed a geospatial delivery-time model that reduced arrival prediction error by 21 percent and deployed route-risk scoring through FastAPI and Docker.",
+      "keywords": [
+        "geospatial machine learning",
+        "logistics",
+        "GeoPandas",
+        "PostGIS",
+        "XGBoost",
+        "FastAPI",
+        "Docker"
+      ]
+    },
+    {
+      "project_id": "security-log-anomaly-agent",
+      "project_name": "Cybersecurity Log Anomaly Detection Agent",
+      "domain": "Anomaly Detection and Generative AI",
+      "industry": "Cybersecurity",
+      "year": 2025,
+      "status": "Completed",
+      "target_roles": [
+        "AI Engineer",
+        "ML Engineer"
+      ],
+      "tech_stack": [
+        "Python",
+        "PyTorch",
+        "Elasticsearch",
+        "Sentence Transformers",
+        "LangGraph",
+        "FastAPI",
+        "Docker"
+      ],
+      "skills": [
+        "Anomaly Detection",
+        "Natural Language Processing",
+        "Agentic AI",
+        "Semantic Search",
+        "Model Deployment"
+      ],
+      "problem": "Security analysts needed assistance prioritizing large volumes of authentication, endpoint, and network alerts without losing the context needed for investigation.",
+      "solution": "Built a system that detected unusual log patterns, retrieved related historical incidents, and generated structured investigation summaries for analyst review.",
+      "candidate_contribution": [
+        "Normalized authentication, endpoint, and network log events",
+        "Trained an autoencoder to identify behavior that differed from established activity patterns",
+        "Created semantic retrieval over prior incident reports",
+        "Designed an agent workflow that assembled evidence without automatically taking remediation actions",
+        "Exposed alert summaries and supporting events through an API"
+      ],
+      "results": [
+        "Reduced the number of alerts requiring immediate manual review",
+        "Improved analyst access to related historical incidents",
+        "Generated evidence-linked incident summaries",
+        "Maintained human approval for all security decisions and remediation actions"
+      ],
+      "resume_summary": "Built a cybersecurity anomaly-detection agent that combined PyTorch models, semantic incident retrieval, and evidence-linked LLM summaries for analyst review.",
+      "keywords": [
+        "cybersecurity",
+        "anomaly detection",
+        "PyTorch",
+        "LLM agent",
+        "semantic search",
+        "Elasticsearch",
+        "LangGraph"
+      ]
+    },
+    {
+      "project_id": "adaptive-learning-assistant",
+      "project_name": "Adaptive Learning and Tutoring Assistant",
+      "domain": "Generative AI and Personalization",
+      "industry": "Education Technology",
+      "year": 2024,
+      "status": "Completed",
+      "target_roles": [
+        "AI Engineer",
+        "ML Engineer",
+        "Data Scientist"
+      ],
+      "tech_stack": [
+        "Python",
+        "OpenAI API",
+        "Sentence Transformers",
+        "FAISS",
+        "FastAPI",
+        "PostgreSQL",
+        "React"
+      ],
+      "skills": [
+        "Retrieval-Augmented Generation",
+        "Recommendation Systems",
+        "Prompt Engineering",
+        "Learning Analytics",
+        "Full-Stack AI Development"
+      ],
+      "problem": "Students received the same instructional content regardless of their prior performance, misconceptions, or preferred level of explanation.",
+      "solution": "Developed an AI tutoring assistant that retrieved approved course materials, generated grounded explanations, and recommended practice questions based on demonstrated skill gaps.",
+      "candidate_contribution": [
+        "Built a retrieval pipeline over instructor-approved lessons and examples",
+        "Created student mastery profiles from quiz and practice activity",
+        "Implemented recommendation logic for selecting the next learning activity",
+        "Added citations to the source material used in generated explanations",
+        "Developed API endpoints for the student-facing application"
+      ],
+      "results": [
+        "Generated answers grounded in approved instructional content",
+        "Adjusted practice difficulty using student performance history",
+        "Provided instructors with topic-level mastery summaries",
+        "Reduced unsupported responses by requiring retrieved course evidence"
+      ],
+      "resume_summary": "Developed an adaptive AI tutoring assistant that combined RAG, student mastery tracking, and personalized practice recommendations grounded in approved course content.",
+      "keywords": [
+        "education technology",
+        "RAG",
+        "personalization",
+        "recommendation system",
+        "FAISS",
+        "FastAPI",
+        "learning analytics"
+      ]
+    }
+
+  ]
+}
