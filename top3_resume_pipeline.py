@@ -223,6 +223,157 @@ def current_resume_project_slots(
     return slots
 
 
+
+
+def sanitize_skill_changes(
+    edit_plan: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Remove incomplete or placeholder skill-change records.
+
+    Skill changes are optional. A record is retained only when it has
+    a nonempty skill, supported action, reason, and evidence.
+    """
+    skills = edit_plan.get("skills")
+
+    if not isinstance(skills, dict):
+        edit_plan["skills"] = {
+            "before": {},
+            "after": {},
+            "changes": [],
+        }
+        return edit_plan
+
+    if not isinstance(skills.get("before"), dict):
+        skills["before"] = {}
+
+    if not isinstance(skills.get("after"), dict):
+        skills["after"] = {}
+
+    changes = skills.get("changes", [])
+
+    if not isinstance(changes, list):
+        skills["changes"] = []
+        return edit_plan
+
+    cleaned_changes: list[dict[str, Any]] = []
+
+    for change in changes:
+        if not isinstance(change, dict):
+            continue
+
+        skill = str(change.get("skill", "")).strip()
+        action = str(change.get("action", "")).strip()
+        reason = str(change.get("reason", "")).strip()
+        evidence = change.get("evidence", [])
+
+        if not skill:
+            continue
+
+        if action not in ALLOWED_SKILL_ACTIONS:
+            continue
+
+        if not reason:
+            continue
+
+        if not isinstance(evidence, list) or not evidence:
+            continue
+
+        change["skill"] = skill
+        change["action"] = action
+        change["reason"] = reason
+        change["evidence"] = evidence
+
+        cleaned_changes.append(change)
+
+    skills["changes"] = cleaned_changes
+    edit_plan["skills"] = skills
+    return edit_plan
+
+def sanitize_project_swaps(
+    edit_plan: dict[str, Any],
+    portfolio_data: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Remove incomplete project swaps and normalize required evidence.
+
+    Project swaps are optional. A swap is retained only when it has a
+    valid slot and a valid add_project_id from portfolio.json.
+
+    For every retained swap, Python appends the exact portfolio evidence
+    citation required by validation:
+        {"source": "portfolio", "reference": add_project_id}
+    """
+    swaps = edit_plan.get("project_swaps", [])
+
+    if not isinstance(swaps, list):
+        edit_plan["project_swaps"] = []
+        return edit_plan
+
+    valid_project_ids = set(
+        portfolio_project_map(portfolio_data)
+    )
+
+    cleaned_swaps: list[dict[str, Any]] = []
+
+    for swap in swaps:
+        if not isinstance(swap, dict):
+            continue
+
+        slot = str(swap.get("slot", "")).strip()
+        add_id = str(swap.get("add_project_id", "")).strip()
+
+        if slot not in ALLOWED_PROJECT_SLOTS:
+            continue
+
+        if not add_id or add_id not in valid_project_ids:
+            continue
+
+        swap["slot"] = slot
+        swap["add_project_id"] = add_id
+
+        remove_id = swap.get("remove_project_id")
+
+        if isinstance(remove_id, str):
+            swap["remove_project_id"] = remove_id.strip()
+
+        evidence = swap.get("evidence", [])
+
+        if not isinstance(evidence, list):
+            evidence = []
+
+        normalized_evidence: list[dict[str, Any]] = []
+
+        for item in evidence:
+            if not isinstance(item, dict):
+                continue
+
+            source_name = str(item.get("source", "")).strip().lower()
+            reference = str(item.get("reference", "")).strip()
+
+            if source_name and reference:
+                normalized_evidence.append(
+                    {
+                        "source": source_name,
+                        "reference": reference,
+                    }
+                )
+
+        required_citation = {
+            "source": "portfolio",
+            "reference": add_id,
+        }
+
+        if required_citation not in normalized_evidence:
+            normalized_evidence.append(required_citation)
+
+        swap["evidence"] = normalized_evidence
+        cleaned_swaps.append(swap)
+
+    edit_plan["project_swaps"] = cleaned_swaps
+    return edit_plan
+
+
 def fill_missing_project_remove_ids(
     edit_plan: dict[str, Any],
     resume_summary_data: dict[str, Any],
@@ -614,6 +765,24 @@ Rules:
 - Empty skills.changes and project_swaps lists are valid.
 - Return exactly two experience bullet edits.
 
+
+
+SKILL CHANGE OUTPUT RULE:
+
+- If no supported skill change is needed, return "changes": [].
+- Do not return skill-change records with blank, null, placeholder, unknown,
+  or omitted skill names.
+- Every retained skill change must include a supported action, reason,
+  and candidate evidence.
+
+PROJECT SWAP OUTPUT RULE:
+
+- If no portfolio project is materially better than the current resume
+  projects, return "project_swaps": [].
+- Do not return a project swap with a blank, null, placeholder, unknown,
+  or omitted add_project_id.
+- A project swap must include a valid slot and an exact portfolio project_id.
+
 Return exactly one JSON object with this structure:
 
 {json.dumps(output_schema, indent=2)}
@@ -695,6 +864,16 @@ def generate_edit_plan(
 
     edit_plan = sanitize_evidence_records(
         edit_plan
+    )
+
+    
+    
+    edit_plan = sanitize_skill_changes(
+        edit_plan
+    )
+edit_plan = sanitize_project_swaps(
+        edit_plan=edit_plan,
+        portfolio_data=portfolio_data,
     )
 
     edit_plan = fill_missing_project_remove_ids(
