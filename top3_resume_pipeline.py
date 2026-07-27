@@ -175,6 +175,7 @@ def validate_evidence(evidence: Any, field_name: str) -> None:
         require_nonempty_string(reference, f"{item_name}.reference")
 
 
+
 def normalize_project_name(value: Any) -> str:
     """Normalize project names for matching."""
     return re.sub(
@@ -190,13 +191,6 @@ def current_resume_project_slots(
 ) -> dict[str, str]:
     """
     Match projects currently listed in resume.tex to portfolio project IDs.
-
-    Returns:
-        {
-            "project-1": "project-id-1",
-            "project-2": "project-id-2",
-            "project-3": "project-id-3",
-        }
     """
     portfolio_projects = portfolio_data.get("projects", [])
 
@@ -214,7 +208,7 @@ def current_resume_project_slots(
         [],
     )
 
-    slots = {}
+    slots: dict[str, str] = {}
 
     for index, project_name in enumerate(
         resume_projects[:3],
@@ -228,16 +222,14 @@ def current_resume_project_slots(
 
     return slots
 
+
 def fill_missing_project_remove_ids(
     edit_plan: dict[str, Any],
     resume_summary_data: dict[str, Any],
     portfolio_data: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    Fill a missing remove_project_id using the selected project slot.
-
-    Claude still decides which slot to replace. Python identifies the
-    portfolio ID currently occupying that slot.
+    Fill a missing remove_project_id using the current project slot.
     """
     slot_map = current_resume_project_slots(
         resume_summary_data,
@@ -266,6 +258,82 @@ def fill_missing_project_remove_ids(
 
     return edit_plan
 
+
+def sanitize_evidence_records(
+    edit_plan: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Normalize supported evidence sources and remove unsupported ones.
+    """
+
+    def clean(items: Any) -> list[dict[str, Any]]:
+        if not isinstance(items, list):
+            return []
+
+        cleaned: list[dict[str, Any]] = []
+
+        aliases = {
+            "master skills": "master_skills",
+            "master-skills": "master_skills",
+            "master_skill": "master_skills",
+            "resume.tex": "resume",
+            "portfolio.json": "portfolio",
+            "candidate memory": "memory",
+        }
+
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+
+            source = str(item.get("source", "")).strip().lower()
+            reference = str(item.get("reference", "")).strip()
+
+            source = aliases.get(source, source)
+
+            if source not in ALLOWED_EVIDENCE_SOURCES:
+                continue
+
+            if not reference:
+                continue
+
+            cleaned.append(
+                {
+                    "source": source,
+                    "reference": reference,
+                }
+            )
+
+        return cleaned
+
+    summary = edit_plan.get("summary")
+
+    if isinstance(summary, dict):
+        summary["evidence"] = clean(
+            summary.get("evidence")
+        )
+
+    for bullet in edit_plan.get("experience_bullets", []):
+        if isinstance(bullet, dict):
+            bullet["evidence"] = clean(
+                bullet.get("evidence")
+            )
+
+    skills = edit_plan.get("skills", {})
+
+    if isinstance(skills, dict):
+        for change in skills.get("changes", []):
+            if isinstance(change, dict):
+                change["evidence"] = clean(
+                    change.get("evidence")
+                )
+
+    for swap in edit_plan.get("project_swaps", []):
+        if isinstance(swap, dict):
+            swap["evidence"] = clean(
+                swap.get("evidence")
+            )
+
+    return edit_plan
 
 def validate_edit_plan(
     edit_plan: dict[str, Any],
@@ -498,19 +566,11 @@ def build_resume_edit_prompt(
         "gaps": [],
     }
 
-    resume_project_slots = current_resume_project_slots(
-        resume_summary_data,
-        portfolio_data,
-    )
-
     return f"""
 You are preparing a controlled edit plan for a LaTeX resume.
 
 JOB:
 {json.dumps(job, indent=2)}
-
-CURRENT RESUME PROJECT SLOTS:
-{json.dumps(resume_project_slots, indent=2)}
 
 STRUCTURED RESUME:
 {json.dumps(resume_summary_data, indent=2)}
@@ -553,11 +613,6 @@ Rules:
 - Unsupported requirements must be recorded under gaps.
 - Empty skills.changes and project_swaps lists are valid.
 - Return exactly two experience bullet edits.
-
-For every project swap:
-- slot must be project-1, project-2, or project-3.
-- remove_project_id must equal the project ID currently occupying that slot.
-- add_project_id must be an exact project_id from the portfolio.
 
 Return exactly one JSON object with this structure:
 
@@ -631,8 +686,16 @@ def generate_edit_plan(
         memory_evidence=_PIPELINE_MEMORY_EVIDENCE,
     )
 
-    raw_response = call_resume_edit_model(prompt, model=model)
+    raw_response = call_resume_edit_model(
+        prompt,
+        model=model,
+    )
+
     edit_plan = parse_json_response(raw_response)
+
+    edit_plan = sanitize_evidence_records(
+        edit_plan
+    )
 
     edit_plan = fill_missing_project_remove_ids(
         edit_plan=edit_plan,
@@ -640,7 +703,10 @@ def generate_edit_plan(
         portfolio_data=portfolio_data,
     )
 
-    validate_edit_plan(edit_plan, portfolio_data)
+    validate_edit_plan(
+        edit_plan,
+        portfolio_data,
+    )
 
     return edit_plan
 
