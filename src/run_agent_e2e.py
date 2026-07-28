@@ -24,6 +24,17 @@ import subprocess
 import sys
 from pathlib import Path
 
+import paths  # noqa: F401  — adds src/ to sys.path
+from paths import (
+    REPO_ROOT,
+    ENV_FILE,
+    JOBS_CSV,
+    CANDIDATE_PERSONA,
+    PORTFOLIO_JSON,
+    RESUME_TEX,
+    NOTEBOOK_PATH,
+)
+
 from llm_client import build_llm_client
 from agent_loop import AgentContext, TOOLS, run_agent
 import hitl_cover as hc
@@ -37,7 +48,7 @@ from pipeline_tracing import (
 from run_audit_full_pipeline import load_jobs
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 OUT = ROOT / "tailored_resumes" / "_agent_loop_real"
 MEMORY_PATH = OUT / "memory.json"
 
@@ -207,7 +218,7 @@ def _pdf_text(pdf_path: Path) -> str:
 
 
 def main() -> int:
-    load_dotenv(ROOT / ".env")
+    load_dotenv(ENV_FILE)
     reset_langfuse_client()
     client, model = build_llm_client()
     model = os.environ.get("OPENAI_MODEL") or model
@@ -228,11 +239,11 @@ def main() -> int:
     OUT.mkdir(parents=True)
     MEMORY_PATH.write_text(json.dumps({"skills": [], "facts": []}, indent=2) + "\n")
 
-    persona = json.loads((ROOT / "candidate_persona.json").read_text())
+    persona = json.loads(CANDIDATE_PERSONA.read_text())
     preferences = dict(persona["preferences"])
     master_skills = persona["master_skills"]
-    portfolio = json.loads((ROOT / "portfolio.json").read_text())
-    resume_tex = (ROOT / "resume.tex").read_text()
+    portfolio = json.loads(PORTFOLIO_JSON.read_text())
+    resume_tex = RESUME_TEX.read_text()
     memory = hc.load_memory(MEMORY_PATH)
     memory_ref = {"memory": memory}
 
@@ -266,10 +277,10 @@ def main() -> int:
         ],
     }
 
-    jobs = load_jobs(ROOT / "ai_ml_jobs.csv")
-    print(f"Loaded {len(jobs)} real jobs from ai_ml_jobs.csv")
+    jobs = load_jobs(JOBS_CSV)
+    print(f"Loaded {len(jobs)} real jobs from {JOBS_CSV.name}")
 
-    nb = json.loads((ROOT / "agent_notebook_v2.ipynb").read_text())
+    nb = json.loads(NOTEBOOK_PATH.read_text())
     fit_ns = {
         "t3p": t3p,
         "json": json,

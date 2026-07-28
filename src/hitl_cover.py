@@ -18,7 +18,8 @@ import pipeline_tracing as tracing
 import top3_resume_pipeline as t3p
 
 
-MEMORY_PATH_DEFAULT = "memory.json"
+# Default to repo-root memory.json (callers usually pass an explicit path).
+MEMORY_PATH_DEFAULT = str(Path(__file__).resolve().parents[1] / "memory.json")
 
 
 # ---------------------------------------------------------------------------

@@ -1,8 +1,17 @@
 # Job Search Agent
 
-This is a single-LLM job-search agent for our class assignment. It reads a candidate profile plus `ai_ml_jobs.csv`, filters and scores postings (scoring is deterministic Python, not the LLM), runs a fit analysis on the top 3, tailors a LaTeX resume for each, pauses once per resume for human review (with a `memory.json` that carries facts to later ranks), then writes cover letters. One agent loop picks the tools in order — not a multi-agent setup.
+This is a single-LLM job-search agent for our class assignment. It reads a candidate profile plus `data/ai_ml_jobs.csv`, filters and scores postings (scoring is deterministic Python, not the LLM), runs a fit analysis on the top 3, tailors a LaTeX resume for each, pauses once per resume for human review (with a `memory.json` that carries facts to later ranks), then writes cover letters. One agent loop picks the tools in order — not a multi-agent setup.
 
 ![Agent pipeline architecture](architecture.png)
+
+## Layout
+
+```
+src/           agent code + run scripts
+data/          jobs CSV, persona, portfolio
+resume/        master resume.tex + resume.pdf
+outputs/       hand-in Top-3 artifacts
+```
 
 ## Setup
 
@@ -34,20 +43,22 @@ Never commit `.env`.
 
 ## Run
 
-End-to-end on the real CSV (scripted human review: reject rank 1 with a LangChain fact, then approve):
+From the repo root (so paths to `data/`, `resume/`, and `.env` resolve):
 
 ```bash
 source .venv/bin/activate
-python run_agent_e2e.py
+python src/run_agent_e2e.py
 ```
+
+That script uses scripted human review: reject rank 1 with a LangChain fact, then approve the rest.
 
 A fresh run writes under `tailored_resumes/_agent_loop_real/`. The checked-in `outputs/` folder is the hand-in snapshot for the same Top-3 jobs (job details, resume before/after, cover letter, fit analysis).
 
-The notebook `agent_notebook_v2.ipynb` has the same pipeline pieces cell-by-cell if you want to step through them; the script above is the reliable full run.
+The notebook `agent_notebook_v2.ipynb` has the same pipeline pieces cell-by-cell if you want to step through them — open it with the working directory set to the repo root. The script above is the reliable full run.
 
 ## Results
 
-Real Top 3 from our scored run (`tailored_resumes/_agent_loop_real/agent_trace.json`):
+Real Top 3 from our scored run:
 
 | Rank | Job | Score |
 |------|-----|------:|

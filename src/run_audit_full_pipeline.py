@@ -19,13 +19,24 @@ import shutil
 import sys
 from pathlib import Path
 
+import paths  # noqa: F401  — adds src/ to sys.path
+from paths import (
+    REPO_ROOT,
+    ENV_FILE,
+    JOBS_CSV,
+    CANDIDATE_PERSONA,
+    PORTFOLIO_JSON,
+    RESUME_TEX,
+    NOTEBOOK_PATH,
+)
+
 from llm_client import build_llm_client
 import hitl_cover as hc
 import top3_resume_pipeline as t3p
 from pipeline_tracing import root_trace, trace_span, format_trace_summary
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 OUT = ROOT / "tailored_resumes" / "_audit_full_pipeline"
 MEMORY_PATH = OUT / "memory.json"
 
@@ -177,7 +188,7 @@ def score_jobs(jobs_list, resume_summary, portfolio, master_skills, memory, weig
 
 
 def main() -> int:
-    load_dotenv(ROOT / ".env")
+    load_dotenv(ENV_FILE)
     client, model = build_llm_client()
     model = os.environ.get("OPENAI_MODEL") or model
     print(f"Using model: {model}")
@@ -187,11 +198,11 @@ def main() -> int:
     OUT.mkdir(parents=True)
     MEMORY_PATH.write_text(json.dumps({"skills": [], "facts": []}, indent=2) + "\n")
 
-    persona = json.loads((ROOT / "candidate_persona.json").read_text())
+    persona = json.loads(CANDIDATE_PERSONA.read_text())
     preferences = persona["preferences"]
     master_skills = persona["master_skills"]
-    portfolio = json.loads((ROOT / "portfolio.json").read_text())
-    resume_tex = (ROOT / "resume.tex").read_text()
+    portfolio = json.loads(PORTFOLIO_JSON.read_text())
+    resume_tex = RESUME_TEX.read_text()
     memory = hc.load_memory(MEMORY_PATH)
     resume_summary = {
         "titles_held": ["Data Science Research Assistant", "Software Engineering Intern"],
@@ -210,10 +221,10 @@ def main() -> int:
         ],
     }
 
-    jobs = load_jobs(ROOT / "ai_ml_jobs.csv")
+    jobs = load_jobs(JOBS_CSV)
 
     # Load fit_analysis from notebook cell 26
-    nb = json.loads((ROOT / "agent_notebook_v2.ipynb").read_text())
+    nb = json.loads(NOTEBOOK_PATH.read_text())
     fit_src = "".join(nb["cells"][26]["source"])
     fit_ns = {"t3p": t3p, "json": json, "MODEL": model, "FIT_ANALYSIS_MODEL": model}
     exec(fit_src, fit_ns)

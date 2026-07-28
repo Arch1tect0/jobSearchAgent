@@ -43,5 +43,11 @@ def compile_resume(tex_path: str) -> Path:
 
 
 if __name__ == "__main__":
-    compiled_pdf = compile_resume("resume.tex")
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from paths import RESUME_TEX
+
+    compiled_pdf = compile_resume(str(RESUME_TEX))
     print(f"Compiled resume: {compiled_pdf}")
