@@ -1,0 +1,18 @@
+Tell me why this job is a good fit for me: Adjunct Faculty - Artificial Intelligence at Lone Star College (LSC-University Park)
+
+Relevant Experience
+❌ The candidate has 1 year of experience as a Data Science Research Assistant and Software Engineering Intern, which is less than the 3 years of nonteaching work experience required for this adjunct faculty role focused on AI instruction.
+
+Seniority
+❌ The candidate has 1 year of professional experience, which is below the 3 years required by the job.
+
+Education
+✅ The candidate holds an M.S. in Data Science, which meets the requirement of a Master's degree with 18 graduate hours in a technology-related area.
+
+Core Skills
+✅ Aligned: mastery of ai course content, application, excellent oral, written, interpersonal communication, teamwork, learning technologies, distance learning)
+❌ Genuine gaps: advising, course development, facilitation, interest in interdisciplinary teaching, learning communities, service learning, student evaluation, student-engagement strategies, teaching
+
+Projects
+❌ Current: "Manufacturing Defect Detection System" -- This project focuses on computer vision and manufacturing, which is less relevant to AI teaching and educational technology.
+✅ Swap Suggestion: Replace it with "Adaptive Learning and Tutoring Assistant" from your portfolio; The Adaptive Learning and Tutoring Assistant project directly relates to education technology, AI tutoring, and personalized learning, aligning well with the job's focus on AI instruction, student engagement, and course development.

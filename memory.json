@@ -1,0 +1,17 @@
+{
+  "skills": [
+    "LangChain"
+  ],
+  "facts": [
+    {
+      "text": "The candidate knows LangChain",
+      "skill": "LangChain",
+      "provenance": "stated by candidate, review round 1, resume 1",
+      "rank": 1,
+      "job_title": "Agentic AI Engineer",
+      "company": "Fervo Energy",
+      "round": 1,
+      "added_at": "2026-07-27T21:35:47.961710+00:00"
+    }
+  ]
+}

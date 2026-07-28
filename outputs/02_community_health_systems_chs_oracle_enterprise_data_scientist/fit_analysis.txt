@@ -1,0 +1,25 @@
+Tell me why this job is a good fit for me: Oracle Enterprise Data Scientist at Community Health Systems (CHS)
+
+Relevant Experience
+❌ The candidate has 1 year of experience as a Data Science Research Assistant and Software Engineering Intern, but the job requires 2+ years in a specialized data science role within healthcare systems or payers.
+
+Seniority
+❌ The candidate has 1 year of experience, which is less than the 2+ years required by the job.
+
+Education
+✅ The candidate holds an M.S. in Data Science, meeting the job's requirement for a master's degree in a related quantitative field.
+
+Core Skills
+✅ Aligned: python
+❌ Missing but evidenced in your profile: sql (resume: skills list)
+❌ Missing but evidenced in your profile: time series analysis (portfolio: Regional Energy Demand Forecasting)
+❌ Missing but evidenced in your profile: advanced visualization (tableau, power bi) (portfolio: Customer Churn Prediction Platform)
+❌ Missing but evidenced in your profile: predictive modeling (demand forecasting, revenue-cycle, cash-flow forecasting, denial prediction) (portfolio: Regional Energy Demand Forecasting; portfolio: Clinical Readmission Risk Prediction)
+❌ Missing but evidenced in your profile: ml for logistics (portfolio: Delivery Delay Prediction and Route Intelligence)
+❌ Missing but evidenced in your profile: procurement optimization (portfolio: Retail Demand and Pricing Optimization)
+❌ Missing but evidenced in your profile: power bi (portfolio: Customer Churn Prediction Platform)
+❌ Genuine gaps: billing linkage), charge capture, cloud certification., contract management, data integrity, data validation frameworks, healthcare data governance, hipaa, hitech, icd-10), ml libraries, oracle applications, oracle procurement, oracle rcm (item masters, procedural analytics, purchase orders, r with statistical modeling, surgical, views), warehouse transactions
+
+Projects
+❌ Current: "Resume–Job Matching Agent" -- This project focuses on AI agentic resume generation and does not align well with healthcare, Oracle systems, or predictive modeling in healthcare operations.
+✅ Swap Suggestion: Replace it with "Hospital Readmission Risk Prediction" from your portfolio; This project is directly in the healthcare domain, involves predictive modeling, uses Python and ML libraries, and addresses healthcare data governance and HIPAA-relevant analytics, aligning better with the job's healthcare and data science focus.

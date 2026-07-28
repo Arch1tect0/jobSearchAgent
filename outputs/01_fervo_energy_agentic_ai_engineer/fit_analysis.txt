@@ -1,0 +1,25 @@
+Tell me why this job is a good fit for me: Agentic AI Engineer at Fervo Energy
+
+Relevant Experience
+❌ The candidate has 1 year of experience as a Data Science Research Assistant and Software Engineering Intern, which is less than the 2+ years required for building and deploying agentic AI/LLM-powered applications in production.
+
+Seniority
+❌ The candidate has 1 year of professional experience, which is below the 2 years of experience required by the job.
+
+Education
+✅ The candidate holds an M.S. in Data Science, which meets the preferred educational qualifications for the role.
+
+Core Skills
+✅ Aligned: git, fastapi, python
+❌ Missing but evidenced in your profile: langgraph (portfolio: Cybersecurity Log Anomaly Detection Agent)
+❌ Missing but evidenced in your profile: openai api (portfolio: Resume–Job Matching Agent)
+❌ Missing but evidenced in your profile: docker (resume: skills)
+❌ Missing but evidenced in your profile: RAG with vector DBs (portfolio: Document Question-Answering System)
+❌ Missing but evidenced in your profile: prompt engineering (portfolio: Resume–Job Matching Agent)
+❌ Missing but evidenced in your profile: streamlit (portfolio: Retail Demand and Pricing Optimization)
+❌ Missing but evidenced in your profile: react (portfolio: Adaptive Learning and Tutoring Assistant)
+❌ Genuine gaps: agent frameworks (langchain, llamaindex, autogen, semantic kernel), azure deployment (app service, container apps, functions, key vault, entra id), cd, chroma, ci, function calling, llm apis sdks (anthropic claude, azure openai) with tool use, model context protocol, pgvector, pinecone, state management, strong observability and production-ops skills, structured outputs, terraform, tool routing, weaviate
+
+Projects
+❌ Current: "Manufacturing Defect Detection System" -- This project focuses on computer vision and defect detection, which is less relevant to agentic AI workflows and LLM-powered applications required by the job.
+✅ Swap Suggestion: Replace it with "Cybersecurity Log Anomaly Detection Agent" from your portfolio; The Cybersecurity Log Anomaly Detection Agent project uses LangGraph, PyTorch, FastAPI, Docker, and involves agentic AI and semantic search, aligning better with the job's requirements for agent frameworks, LLM-powered applications, and production deployment.
